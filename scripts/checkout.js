@@ -4,6 +4,10 @@ import { formatCurrency } from "./utils/money.js"
 
 let cartSummaryHTML = '';
 
+let today = dayjs();
+let deliveryDate = today.add(7,'days');
+console.log(deliveryDate.format('dddd, MMMM D'));//from documentation of dayjs
+
 cart.forEach((cartItem) => {
     let productId = cartItem.productId;
 
