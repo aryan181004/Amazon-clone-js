@@ -6,7 +6,7 @@ import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
 //default export
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 //run everything from this file
-import '../data/cart-class.js';
+//import '../data/cart-class.js';
 
 
 // let today = dayjs();
@@ -54,7 +54,7 @@ function renderOrderSummary(){
                         ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                        $${formatCurrency(matchingProduct.priceCents)}
+                        $${matchingProduct.getPrice()}
                     </div>
                     <div class="product-quantity">
                         <span>
