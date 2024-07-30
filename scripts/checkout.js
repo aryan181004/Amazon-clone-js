@@ -6,7 +6,7 @@ import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
 //default export
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 //run everything from this file
-import '../data/cart-oop.js'
+import '../data/cart-class.js';
 
 
 // let today = dayjs();
