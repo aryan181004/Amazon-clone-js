@@ -741,3 +741,15 @@ export const products = [
   }
   return new Product(productDetails);
 });
+
+// const date = new Date();
+// console.log(date);
+// console.log(date.toLocaleTimeString());
+// console.log(this);
+
+// function logThis(){
+//   console.log(this);
+// }
+// logThis();
+// //give value to this
+// logThis.call('hello');
