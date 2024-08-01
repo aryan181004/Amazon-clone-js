@@ -5,6 +5,12 @@ import { formatCurrency } from "./utils/money.js";
 import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
 //default export
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+
+
+// backend file
+import '../data/backend-practice.js'
+
+
 //run everything from this file
 //import '../data/cart-class.js';
 
