@@ -1,6 +1,6 @@
 //named export
 import { cart , removeFromCart , saveToStorage , updateDeliveryOption} from "../data/cart.js";
-import { products, getProduct } from "../data/products.js";
+import { products, getProduct , loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
 //default export
@@ -8,7 +8,7 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
 
 // backend file
-import '../data/backend-practice.js'
+// import '../data/backend-practice.js'
 
 
 //run everything from this file
@@ -18,6 +18,15 @@ import '../data/backend-practice.js'
 // let today = dayjs();
 // let deliveryDate = today.add(7,'days');
 // console.log(deliveryDate.format('dddd, MMMM D'));//from documentation of dayjs
+
+
+loadProducts(() => {
+  renderOrderSummary();
+  renderPaymentSummary();
+});
+
+
+
 
 function renderOrderSummary(){
     let cartSummaryHTML = '';

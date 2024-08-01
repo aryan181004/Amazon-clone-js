@@ -1,6 +1,9 @@
 // create object to receive/send data over internet
 const xhr = new XMLHttpRequest();
 
+/*
+ *  make event listener before opening a request  
+ */
 // runs function after a event
 // here event is respone is loaded
 xhr.addEventListener('load', () => {
