@@ -1,5 +1,5 @@
 //named export
-import { cart , removeFromCart , saveToStorage , updateDeliveryOption} from "../data/cart.js";
+import { cart , removeFromCart , saveToStorage , updateDeliveryOption , loadCart} from "../data/cart.js";
 import { products, getProduct , loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
@@ -19,13 +19,85 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 // let deliveryDate = today.add(7,'days');
 // console.log(deliveryDate.format('dddd, MMMM D'));//from documentation of dayjs
 
+/*
+ * runs multiple promises together
+ * pass an array of promises
+ * then gives next step after all promises are run
+ */
+      Promise.all([
+        new Promise((resolve) => {
+          // console.log('start promise');
+          loadProducts(() => {
+            //  console.log('finished loading');
+            resolve('value1');
+          });
 
-loadProducts(() => {
-  renderOrderSummary();
-  renderPaymentSummary();
-});
+        }),
+
+        new Promise((resolve) => {
+          loadCart(() => {
+            resolve();
+            
+          });
+        })
+
+      ]).then((values) => {
+        console.log(values);
+        renderOrderSummary();
+        renderPaymentSummary();
+      });
+/*
+// better way to handle async code
+// run function immediately
+          new Promise((resolve) => {
+            // console.log('start promise');
+            loadProducts(() => {
+              //  console.log('finished loading');
+              resolve('value1');
+            });
+
+          }).then((value) => {
+            // console.log('next Step');
+            console.log(value);
+            return new Promise((resolve) => {
+              loadCart(() => {
+                resolve();
+                
+              }).then(() => {
+                renderOrderSummary();
+                renderPaymentSummary();
+              });
+            });
+          });
+*/
+// resolve is a function
+// waits till response is done
+// then runs next steps after resolve
+
+// giving a value to resolve 
+// passes it to parameter 
+// in then(value)
+
+/*
+ * Promise runs loadProducts in it
+ * simultaneously with loadProducts outside
+ * it creates another thread along with current one 
+ * in this another thread, resolve in run, then then() 
+ */
 
 
+// loadProducts(() => {
+//   loadCart(() =>{
+//     renderOrderSummary();
+//     renderPaymentSummary();
+//   });
+// });
+
+/**
+ * promises are used to avoid 
+ * multiple callbacks of a function
+ * to avoid nesting of functions
+ */
 
 
 function renderOrderSummary(){
@@ -157,7 +229,7 @@ document.querySelectorAll('.js-delivery-option')
 
 }
 
-renderOrderSummary();
+
 
 
 // price summary
@@ -217,4 +289,3 @@ function renderPaymentSummary(){
         .innerHTML = paymentSummaryHTML;
 }
 
-renderPaymentSummary();
