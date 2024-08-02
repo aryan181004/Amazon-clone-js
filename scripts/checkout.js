@@ -1,6 +1,6 @@
 //named export
 import { cart , removeFromCart , saveToStorage , updateDeliveryOption , loadCart} from "../data/cart.js";
-import { products, getProduct , loadProducts } from "../data/products.js";
+import { products, getProduct , loadProducts , loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
 //default export
@@ -25,14 +25,7 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
  * then gives next step after all promises are run
  */
       Promise.all([
-        new Promise((resolve) => {
-          // console.log('start promise');
-          loadProducts(() => {
-            //  console.log('finished loading');
-            resolve('value1');
-          });
-
-        }),
+        loadProductsFetch(),
 
         new Promise((resolve) => {
           loadCart(() => {
