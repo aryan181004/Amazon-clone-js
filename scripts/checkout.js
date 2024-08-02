@@ -19,11 +19,63 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 // let deliveryDate = today.add(7,'days');
 // console.log(deliveryDate.format('dddd, MMMM D'));//from documentation of dayjs
 
+/**
+ * async
+ * makes a function return a promise
+ */
+/**
+ * await
+ * waits for promise to finish
+ * before going to next line
+ * 
+ * can be used in an async function only
+ */
+async function loadPage(){
+  console.log('load page');
+
+  // await lest us write async code like normal code
+  // then() is not needed now
+  await loadProductsFetch();
+
+  // value3 is saved in value
+  const value = await new Promise((resolve) => {
+    loadCart(() => {
+      resolve('values3');
+      
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+
+
+  // if we return something 
+  // it becomes as if giving parameter in resolve(param)
+  // return 'values2';
+
+}
+
+loadPage();
+
+/** 
+ * above code does what
+ * 
+ * function loadPage(){
+ *  return Promise(() => {
+ *    console.log('load page');
+ *    resolve('values2');
+ *  });
+ * }
+ * 
+ * does 
+ */
+
 /*
  * runs multiple promises together
  * pass an array of promises
  * then gives next step after all promises are run
  */
+/*
       Promise.all([
         loadProductsFetch(),
 
