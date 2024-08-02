@@ -3,6 +3,7 @@ import { cart , removeFromCart , saveToStorage , updateDeliveryOption , loadCart
 import { products, getProduct , loadProducts , loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { deliveryOption , getDeliveryOption } from "../data/deliveryOptions.js";
+import { addOrder } from "../data/orders.js";
 //default export
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
@@ -45,7 +46,8 @@ async function loadPage(){
     /**
      * reject creates an error in the future
      */
-    const value = await new Promise((resolve , reject) => {
+    // const value =
+     await new Promise((resolve , reject) => {
       // throw 'error2';
       loadCart(() => {
         // reject('error3');
@@ -337,7 +339,7 @@ function renderPaymentSummary(){
             <div class="payment-summary-money">$${formatCurrency(totalCents)}</div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order">
             Place your order
           </button>
         </div>
@@ -345,5 +347,41 @@ function renderPaymentSummary(){
 
     document.querySelector('.js-payment-summary')
         .innerHTML = paymentSummaryHTML;
-}
 
+/** 
+ * 4 types of request
+ * GET = get someth9ing
+ * POST = create something - allows to send data
+ * PUT = update something
+ * DELETE = delete something
+ */
+
+/**
+ * pass a object to change request type in fetch
+ */
+    document.querySelector('.js-place-order')
+      .addEventListener('click', async () => {
+        try{
+          const response = 
+          await fetch('https://supersimplebackend.dev/orders',{
+            method : 'POST',
+            headers : {
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+              cart : cart
+            })
+          });
+
+          // response.json to get data 
+          // also a promise
+          const order = await response.json();
+          addOrder(order);
+        } catch(error){
+          console.log('unexpected error.');
+        }
+
+        // helps us control url
+        window.location.href = 'orders.html';
+        });
+}

@@ -80,7 +80,7 @@ export let products = [];
 
 // fetch creates a promise to GET response
 export function loadProductsFetch(){
-  const promise = fetch('https://e.supersimplebackend.dev/products')
+  const promise = fetch('https://supersimplebackend.dev/products')
     .then((response) => {
       // gives json for products linked to response
       // on returning , value stored in parameter of next then()
