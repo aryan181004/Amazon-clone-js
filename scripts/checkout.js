@@ -32,18 +32,31 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
  */
 async function loadPage(){
   console.log('load page');
+  // try catch for error handling in async await
+  try{
+    // throw creates an error
+    // throw 'error1'
 
-  // await lest us write async code like normal code
-  // then() is not needed now
-  await loadProductsFetch();
+    // await lest us write async code like normal code
+    // then() is not needed now
+    await loadProductsFetch();
 
-  // value3 is saved in value
-  const value = await new Promise((resolve) => {
-    loadCart(() => {
-      resolve('values3');
-      
+    // value3 is saved in value
+    /**
+     * reject creates an error in the future
+     */
+    const value = await new Promise((resolve , reject) => {
+      // throw 'error2';
+      loadCart(() => {
+        // reject('error3');
+        resolve('values3');
+        
+      });
     });
-  });
+  } catch(error) {
+    console.log('unxpected error try catch block. try again later');
+  }
+  
 
   renderOrderSummary();
   renderPaymentSummary();

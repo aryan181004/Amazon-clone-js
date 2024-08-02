@@ -80,7 +80,7 @@ export let products = [];
 
 // fetch creates a promise to GET response
 export function loadProductsFetch(){
-  const promise = fetch('https://supersimplebackend.dev/products')
+  const promise = fetch('https://e.supersimplebackend.dev/products')
     .then((response) => {
       // gives json for products linked to response
       // on returning , value stored in parameter of next then()
@@ -95,8 +95,13 @@ export function loadProductsFetch(){
   
       console.log('load products');
 
+    })
+    /*
+    .catch((error) => {
+      console.log('unxpected error in promise. try again later');
     });
-
+    // catch is used for error handling in promises
+*/
   return promise;
 }
 /*
@@ -118,6 +123,11 @@ export function loadProducts(fun){
     console.log('load products');
 
     fun();
+  });
+  
+  // error event
+  xhr.addEventListener('error', (error) => {
+    console.log('unxpected error. try again later');
   });
 
   xhr.open('GET', 'https://supersimplebackend.dev/products');
